@@ -1,10 +1,10 @@
 /*
 *Author : Revanth Sai Nandamuri
 *Portfolio : https://revanthnandamuri1341b0.github.io/
-*Date of update : 18 February 2022
-*Project name : APB SLAVE IP 
+*Date of update : 08 March 2022
+*Project name : APB SLAVE Verification using SV
 *Domain : SYSTEMVERILOG
-*Description : APB slave IP TestBench 
+*Description : Regular Testbench for basic working
 *Refrence : https://www.edaplayground.com/x/67
 *           https://github.com/maomran/APB-Slave/blob/master/APB_Slave.v
             https://www.edaplayground.com/x/Axae

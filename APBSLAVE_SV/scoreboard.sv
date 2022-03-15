@@ -4,7 +4,7 @@
 *Date of update : 08 March 2022
 *Project name : APB SLAVE Verification using SV
 *Domain : SYSTEMVERILOG
-*Description : Matches and MisMatches 
+*Description : Scoreboard to calculate Matches and MisMatches
 *Refrence : 
 *File Name : scoreboard.sv
 *File ID : 613118
