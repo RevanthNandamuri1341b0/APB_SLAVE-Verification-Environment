@@ -1,3 +1,16 @@
+/*
+*Author : Revanth Sai Nandamuri
+*Portfolio : https://revanthnandamuri1341b0.github.io/
+*Date of update : 21 March 2022
+*Project name : APB SLAVE Verification using UVM
+*Domain : UVM
+*Description : APB slave Reset Sequence derived Class 
+*Refrence : https://www.edaplayground.com/x/Cjzs
+*File Name : reset_sequence.sv
+*File ID : 132939
+*Modified by : #your name#
+*/
+
 class reset_sequence extends base_sequence;
     `uvm_object_utils(reset_sequence);
 
@@ -14,7 +27,7 @@ task reset_sequence::body();
         `uvm_info("RESET", "RESET Transaction STARTED", UVM_MEDIUM)
         `uvm_create(req);
         start_item(req);
-        req.mode = RESET;
+        req.kind = RESET;
         req.reset_cycles = 2;
         finish_item(req);
         `uvm_info("RESET", "RESET Transaction ENDED", UVM_MEDIUM)

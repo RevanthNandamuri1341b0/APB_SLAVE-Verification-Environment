@@ -1,0 +1,34 @@
+/*
+*Author : Revanth Sai Nandamuri
+*Portfolio : https://revanthnandamuri1341b0.github.io/
+*Date of update : 28 March 2022
+*Project name : APB SLAVE Verification using UVM
+*Domain : UVM
+*Description : APB slave Package file  
+*Refrence : https://www.edaplayground.com/x/Cjzs
+*File Name : apb_package.pkg
+*File ID : 436861
+*Modified by : #your name#
+*/
+
+package apb_package;
+    import uvm_pkg::*;
+    `include "uvm_macros.svh"
+    `include "packet.sv"
+
+    `include "base_sequence.sv"
+    `include "reset_sequence.sv"
+    `include "main_sequence.sv"
+
+    `include "sequencer.sv"
+    `include "driver.sv"
+    `include "iMonitor.sv"
+    `include "master_agent.sv"
+
+    `include "oMonitor.sv"
+    `include "slave_agent.sv"
+
+    `include "scoreboard.sv"
+    `include "environment.sv"
+
+endpackage: apb_package

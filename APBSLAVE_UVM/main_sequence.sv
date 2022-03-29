@@ -1,3 +1,16 @@
+/*
+*Author : Revanth Sai Nandamuri
+*Portfolio : https://revanthnandamuri1341b0.github.io/
+*Date of update : 21 March 2022
+*Project name : APB SLAVE Verification using UVM
+*Domain : UVM
+*Description : APB slave Main Sequence Derived Class 
+*Refrence : https://www.edaplayground.com/x/Cjzs
+*File Name : main_sequence.sv
+*File ID : 162449
+*Modified by : #your name#
+*/
+
 class main_sequence extends base_sequence;
     `uvm_object_utils(main_sequence);
 
@@ -20,8 +33,7 @@ task main_sequence::body();
         req.copy(ref_pkt);
         start_item(req);
         finish_item(req);
-        get_response(req);
-        count++
-        `uvm_info("RW_SEQ",$sformatf("Transaction %0d Done with resp=%0s \n ",count,rsp.slv_rsp.name()),UVM_MEDIUM);
+        count++;
+        `uvm_info("SEQ",$sformatf("MASTER SEQUENCE : Transaction %0d DONE ",count ), UVM_MEDIUM);
     end
 endtask: body
