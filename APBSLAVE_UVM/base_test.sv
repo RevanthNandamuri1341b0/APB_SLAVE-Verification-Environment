@@ -36,13 +36,13 @@ function void base_test::build_phase(uvm_phase phase);
     uvm_config_db#(virtual apb_if.tb_mon)::get(this, "", "mon_in", vif_min);
     uvm_config_db#(virtual apb_if.tb_mon)::get(this, "", "mon_out", vif_mout);
 
-    uvm_config_db#(virtual apb_if.tb)::set(this, "", "drvr_if", mvif);
+    uvm_config_db#(virtual apb_if.tb)::set(this, "env.m_agent", "drvr_if", mvif);
     uvm_config_db#(virtual apb_if.tb_mon)::set(this, "env.m_agent", "iMon_if", vif_min);
     uvm_config_db#(virtual apb_if.tb_mon)::set(this, "env.s_agent", "oMon_if", vif_mout);
     
-    uvm_config_db#(int)::set(this, "env.m_agent.seqr", "item_count", 20);
+    uvm_config_db#(bit[31:0])::set(this, "env.m_agent.seq", "item_count", 20);
     
-    uvm_config_db#(uvm_object_wrapper)::set(this, "env.m_agent.seqr.main_phase", "default_sequence", base_sequence::get_type());
+    uvm_config_db#(uvm_object_wrapper)::set(this, "env.m_agent.seq.main_phase", "default_sequence", base_sequence::get_type());
     
 endfunction: build_phase
 

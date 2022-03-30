@@ -10,7 +10,7 @@
 *File ID : 550462
 *Modified by : #your name#
 */
-typedef enum {IDLE,RESET,STIMULUS} packet_type;
+typedef enum {IDLE,RESET,STIMULUS} packet_type_t;
 // typedef enum bit[1:0] {NOT_OK,OK,PENDING,ERROR} response_e;
 
 class packet extends uvm_sequence_item;
@@ -21,7 +21,7 @@ class packet extends uvm_sequence_item;
     bit [`AWIDTH-1:0]prev_addr;
     bit [`DWIDTH-1:0]prev_data;
     
-    packet_type kind;
+    packet_type_t kind;
     bit[7:0] reset_cycles;
     // response_e status;
 
@@ -30,6 +30,9 @@ class packet extends uvm_sequence_item;
        `uvm_field_int(data,UVM_ALL_ON)
    `uvm_object_utils_end
 
+    function new(string name = "packet");
+        super.new(name);
+    endfunction: new
 
     extern constraint valid;
     extern function void post_randomize();

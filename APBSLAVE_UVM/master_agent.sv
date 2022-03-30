@@ -34,7 +34,7 @@ function void master_agent::build_phase(uvm_phase phase);
     if(is_active == UVM_ACTIVE)
     begin
         seq  = sequencer::type_id::create("seq",this);
-        drvr = driver::type_id::create("iMon",this);
+        drvr = driver::type_id::create("drvr",this);
     end
     iMon = iMonitor::type_id::create("iMon",this);
 endfunction: build_phase

@@ -11,7 +11,7 @@
 *Modified by : #your name#
 */
 
-class scoreboard extends uvm_component;
+class scoreboard extends uvm_scoreboard;
     `uvm_component_utils(scoreboard);
 
     uvm_analysis_port#(packet) mon_in;

@@ -10,7 +10,7 @@
 *File ID : 345722
 *Modified by : #your name#
 */
-class driver extends uvm_driver;
+class driver extends uvm_driver#(packet);
     `uvm_component_utils(driver);
 
     bit[31:0]pkt_id;
@@ -26,7 +26,6 @@ class driver extends uvm_driver;
     extern virtual task read(ref packet pkt);
     extern virtual task drive(packet pkt);
     extern virtual task drive_reset(packet pkt);
-    extern virtual task drive_config(packet pkt);
     extern virtual task drive_stimulus(packet pkt);
     
 endclass: driver
@@ -34,10 +33,10 @@ endclass: driver
 task driver::run_phase(uvm_phase phase);
     seq_item_port.get_next_item(req);
     pkt_id++;
-    `uvm_info("DRIVER", $sformatf("Recieved Transaction packet %0s[%0d]",), UVM_NONE)
+    `uvm_info("DRIVER", $sformatf("Recieved Transaction packet %0s[%0d]",req.kind.name(),pkt_id), UVM_NONE)
     drive(req);
     seq_item_port.item_done();
-    `uvm_info("DRIVER", $sformatf("Sent Transaction packet %0s[%0d]"), UVM_NONE)
+    `uvm_info("DRIVER", $sformatf("Sent Transaction packet %0s[%0d]",req.kind.name(),pkt_id), UVM_NONE)
 endtask: run_phase
 
 function void driver::connect_phase(uvm_phase phase);
@@ -49,10 +48,10 @@ function void driver::connect_phase(uvm_phase phase);
 endfunction: connect_phase
 
 task driver::drive(packet pkt);
-    case (pkt.kind)
-        RESET   : drive_reset(pkt);
-        STIMULUS: drive_stimulus(pkt);
-        default : `uvm_error("DRIVER ERROR", "Invalid Packet Recieved")
+    case (req.kind)
+        RESET   : drive_reset(req);
+        STIMULUS: drive_stimulus(req);
+        default : `uvm_error("DRIVER ERROR", $sformatf("Invalid Packet Recieved = ",req.kind.name()))
     endcase
 endtask: drive
 
@@ -64,7 +63,7 @@ task driver::write(input packet pkt);
     @(vif.cb);
     vif.cb.p_write  <= 'x;
     `uvm_info(get_full_name(), "WRITE Transaction Ended", UVM_HIGH)
-    `uvm_info(get_full_name(), $sformatf("Address = %0d | Data = %0d",vif.cb.addr,vif.cb.wdata), UVM_MEDIUM)
+    `uvm_info(get_full_name(), $sformatf("Address = %0d | Data = %0d",pkt.addr,pkt.data), UVM_MEDIUM)
 endtask: write
 
 task driver::read(ref packet pkt);
@@ -76,7 +75,8 @@ task driver::read(ref packet pkt);
     vif.cb.p_write  <= 'x;
     pkt.data        = vif.cb.rdata;
     `uvm_info(get_full_name(), "READ Transaction Ended", UVM_HIGH)
-    `uvm_info(get_full_name(), $sformatf("Address = %0d | Data = %0d",vif.cb.addr,vif.cb.wdata), UVM_MEDIUM)
+    `uvm_info(get_full_name(), $sformatf("Address = %0d | Data = %0d",pkt.addr,pkt.data), UVM_MEDIUM)
+    // `uvm_info(get_full_name(), $sformatf("Address = %0d | Data = %0d",vif.cb.addr,vif.cb.wdata), UVM_MEDIUM)
 endtask: read
 
 task driver::drive_reset(packet pkt);

@@ -26,9 +26,9 @@ task reset_sequence::body();
     begin
         `uvm_info("RESET", "RESET Transaction STARTED", UVM_MEDIUM)
         `uvm_create(req);
-        start_item(req);
         req.kind = RESET;
         req.reset_cycles = 2;
+        start_item(req);
         finish_item(req);
         `uvm_info("RESET", "RESET Transaction ENDED", UVM_MEDIUM)
     end

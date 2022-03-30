@@ -14,8 +14,8 @@
 class oMonitor extends uvm_monitor;
     `uvm_component_utils(oMonitor);
     virtual apb_if.tb_mon vif;
-    packet pkt;
     uvm_analysis_port#(packet) analysis_port;
+    packet pkt;
 
     function new(string name = "oMonitor", uvm_component parent);
         super.new(name, parent);
@@ -31,8 +31,8 @@ function void oMonitor::build_phase(uvm_phase phase);
     if(!uvm_config_db#(virtual apb_if.tb_mon)::get(get_parent(), "", "oMon_if",vif))
     begin
         `uvm_fatal(get_type_name(), "out Monitor DUT interface NOT set-------------!")    
-        analysis_port=new("analysis_port",this);    
     end
+    analysis_port=new("analysis_port",this);    
 endfunction: build_phase
 
 task oMonitor::run_phase(uvm_phase phase);
