@@ -39,7 +39,7 @@ task oMonitor::run_phase(uvm_phase phase);
     forever 
     begin
         @(vif.mcb.rdata);
-        if(vif.mcb.rdata === 'x || vif.mcb.rdata === 'z) continue;
+        if(vif.mcb.rdata === 'x || vif.mcb.rdata === 'z || vif.mcb.addr === 'x) continue;
         begin
             pkt = packet::type_id::create("pkt",this);
             pkt.addr = vif.mcb.addr;

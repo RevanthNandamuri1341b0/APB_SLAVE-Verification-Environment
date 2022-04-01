@@ -43,8 +43,8 @@ function void scoreboard::connect_phase(uvm_phase phase);
 endfunction: connect_phase
 
 function void scoreboard::extract_phase(uvm_phase phase);
-    uvm_config_db#(int)::set(null, "uvm_test_top.env", "matches", m_comp.m_matches);
-    uvm_config_db#(int)::set(null, "uvm_test_top.env", "mismatches", m_comp.m_mismatches);
+    uvm_config_db#(bit[31:0])::set(null, "uvm_test_top.env", "matches", m_comp.m_matches);
+    uvm_config_db#(bit[31:0])::set(null, "uvm_test_top.env", "mismatches", m_comp.m_mismatches);
 endfunction: extract_phase
 
 function void scoreboard::report_phase(uvm_phase phase);

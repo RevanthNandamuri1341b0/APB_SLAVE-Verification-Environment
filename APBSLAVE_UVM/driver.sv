@@ -31,12 +31,15 @@ class driver extends uvm_driver#(packet);
 endclass: driver
 
 task driver::run_phase(uvm_phase phase);
-    seq_item_port.get_next_item(req);
-    pkt_id++;
-    `uvm_info("DRIVER", $sformatf("Recieved Transaction packet %0s[%0d]",req.kind.name(),pkt_id), UVM_NONE)
-    drive(req);
-    seq_item_port.item_done();
-    `uvm_info("DRIVER", $sformatf("Sent Transaction packet %0s[%0d]",req.kind.name(),pkt_id), UVM_NONE)
+    forever
+    begin 
+        seq_item_port.get_next_item(req);
+        pkt_id++;
+        `uvm_info("DRIVER", $sformatf("Recieved Transaction packet %0s[%0d]",req.kind.name(),pkt_id), UVM_NONE)
+        drive(req);
+        seq_item_port.item_done();
+        `uvm_info("DRIVER", $sformatf("Sent Transaction packet %0s[%0d]",req.kind.name(),pkt_id), UVM_NONE)
+    end
 endtask: run_phase
 
 function void driver::connect_phase(uvm_phase phase);
@@ -51,7 +54,7 @@ task driver::drive(packet pkt);
     case (req.kind)
         RESET   : drive_reset(req);
         STIMULUS: drive_stimulus(req);
-        default : `uvm_error("DRIVER ERROR", $sformatf("Invalid Packet Recieved = ",req.kind.name()))
+        default : `uvm_error("DRIVER ERROR", $sformatf("Invalid Packet Recieved = %0s",req.kind.name()))
     endcase
 endtask: drive
 
@@ -81,9 +84,9 @@ endtask: read
 
 task driver::drive_reset(packet pkt);
     `uvm_info(get_type_name(),"Reset transaction started...",UVM_FULL);
-    vif.rst<=1;
-    repeat(2)@(vif.cb);
     vif.rst<=0;
+    repeat(2)@(vif.cb);
+    vif.rst<=1;
     `uvm_info(get_type_name(),"Reset transaction ended ",UVM_HIGH);
 endtask: drive_reset
 

@@ -34,7 +34,6 @@ endclass: environment
 
 function void environment::build_phase(uvm_phase phase);
     super.build_phase(phase);
-    uvm_config_db#(int)::set(this, "m_agent.seq", "item_count", exp_pkt_count);
     m_agent = master_agent::type_id::create("m_agent",this);
     s_agent = slave_agent::type_id::create("s_agent",this);
     scb     = scoreboard::type_id::create("scb",this);
@@ -46,9 +45,9 @@ function void environment::connect_phase(uvm_phase phase);
 endfunction: connect_phase
 
 function void environment::extract_phase(uvm_phase phase);
-    uvm_config_db#(int)::get(this, "m_agent.seq.*", "item_count", exp_pkt_count);
-    uvm_config_db#(int)::get(this, "", "matches", m_matches);
-    uvm_config_db#(int)::get(this, "", "mismatches", m_mismatches);
+    uvm_config_db#(bit[31:0])::get(this, "m_agent.seq", "item_count", exp_pkt_count);
+    uvm_config_db#(bit[31:0])::get(this, "", "matches", m_matches);
+    uvm_config_db#(bit[31:0])::get(this, "", "mismatches", m_mismatches);
 endfunction: extract_phase
 
 function void environment::report_phase(uvm_phase phase);

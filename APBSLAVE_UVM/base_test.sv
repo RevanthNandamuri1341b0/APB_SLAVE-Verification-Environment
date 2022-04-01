@@ -11,7 +11,7 @@
 *Modified by : #your name#
 */
 
-class base_test extends uvm_component;
+class base_test extends uvm_test;
     `uvm_component_utils(base_test);
 
     environment env;

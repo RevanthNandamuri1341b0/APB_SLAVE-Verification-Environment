@@ -25,13 +25,19 @@ class base_sequence extends uvm_sequence#(packet);
 endclass: base_sequence
 
 task base_sequence::pre_start();
+    
     if(!uvm_config_db#(bit[31:0])::get(get_sequencer(), "", "item_count", item_count))
     begin
         `uvm_warning(get_full_name(),"Packet count is not set hence generating 1 transaction")
         item_count = 6;
     end
+    `uvm_info("SEQ_prestart","Base SEQ", UVM_MEDIUM);
 endtask: pre_start
 
 task base_sequence::body();
-    `uvm_do(req);
+    // repeat(item_count)
+    // begin
+        `uvm_do(req);
+        `uvm_info("SEQ_body","Base SEQ", UVM_MEDIUM);
+    // end
 endtask: body

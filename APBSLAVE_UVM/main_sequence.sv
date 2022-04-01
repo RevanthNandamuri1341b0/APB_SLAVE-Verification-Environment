@@ -13,13 +13,11 @@
 
 class main_sequence extends base_sequence;
     `uvm_object_utils(main_sequence);
-
     function new(string name = "main_sequence");
         super.new(name);
     endfunction: new
-
+    
     extern virtual task body();
-
 endclass: main_sequence
 
 task main_sequence::body();
@@ -31,6 +29,7 @@ task main_sequence::body();
         `uvm_create(req);
         assert(ref_pkt.randomize());
         req.copy(ref_pkt);
+        req.kind = STIMULUS;
         start_item(req);
         finish_item(req);
         count++;
