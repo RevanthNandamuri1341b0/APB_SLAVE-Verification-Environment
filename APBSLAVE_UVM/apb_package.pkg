@@ -28,6 +28,7 @@ package apb_package;
     `include "oMonitor.sv"
     `include "slave_agent.sv"
 
+    `include "coverage.sv"
     `include "scoreboard.sv"
     `include "environment.sv"
 
